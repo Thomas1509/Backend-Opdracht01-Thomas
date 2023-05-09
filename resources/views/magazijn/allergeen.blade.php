@@ -14,7 +14,7 @@
                 }, 4000);
         </script>
     @else
-        <table class="table table-striped">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Naam</th>
