@@ -21,7 +21,11 @@
                 <td>{{ $magazijnItem->product->Barcode }}</td>
                 <td>{{ $magazijnItem->product->Naam }}</td>
                 <td>{{ $magazijnItem->VerpakkingsEenheid }}</td>
+                @if ($magazijnItem->AantalAanwezig == NULL)
+                <td>{{ 0 }}</td>
+                @else
                 <td>{{ $magazijnItem->AantalAanwezig }}</td>
+                @endif
                 <td>
                     <a style="color: red;text-decoration:none;" href="{{ route('magazijn.allergeen', ['product' => $magazijnItem->product->Id]) }}" class="fa-solid fa-xmark"></a>
                 </td>
