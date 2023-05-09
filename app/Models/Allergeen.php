@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Allergeen extends Model
 {
-    protected $table = 'Allergeen';
-
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'ProductPerAllergeen', 'allergeen_id', 'product_id');
-    }
+    protected $table = 'allergeen';
     
+    public function productPerAllergeen()
+    {
+        return $this->hasMany(ProductPerAllergeen::class, 'allergeen_id', 'Id');
+    }
 }
 

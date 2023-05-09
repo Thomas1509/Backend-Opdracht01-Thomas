@@ -6,8 +6,16 @@
     <p>Contactpersoon: {{ $product->leveranciers->first()->ContactPersoon }}</p>
     <p>Nummer: {{ $product->leveranciers->first()->LeverancierNummer }}</p>
     <p>Mobiel: {{ $product->leveranciers->first()->Mobiel }}</p>
-
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+        <script>
+                setTimeout(function() {
+                    window.location.href = "{{ route('magazijn.index') }}";
+                }, 4000);
+        </script>
+    @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -23,7 +31,7 @@
                 @endphp
                 @foreach ($leveranciers as $leverancier)
                     @php
-                        $filteredRows = $leverancier->productPerLeveranciers->where('product_id', $product->Id);
+                        $filteredRows = $leverancier->productPerLeveranciers->where('product_id', $product->Id)->sortBy('DatumEerstVolgendeLevering');
                     @endphp
                     @if ($filteredRows->isNotEmpty())
                         @foreach ($filteredRows as $index => $productPerLeverancier)
@@ -38,4 +46,7 @@
                 @endforeach
             </tbody>
         </table>
+
+    @endif
+
 @endsection

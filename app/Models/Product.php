@@ -18,6 +18,11 @@ class Product extends Model
     {
         return $this->hasOne(ProductPerLeverancier::class, 'product_id', 'Id');
     }
+
+    public function productPerAllergeen()
+    {
+        return $this->hasOne(ProductPerAllergeen::class, 'product_id', 'Id');
+    }
     
     public function leveranciers()
     {
@@ -31,9 +36,17 @@ class Product extends Model
         );
     }
 
-    public function allergeens()
+    public function allergeen()
     {
-        return $this->belongsToMany(Allergeen::class, 'ProductPerAllergeen', 'product_id', 'allergeen_id');
+        return $this->hasManyThrough(
+            Allergeen::class,
+            ProductPerAllergeen::class,
+            'product_id',
+            'Id',
+            'Id',
+            'allergeen_id'
+        );
     }
+
 }
 

@@ -13,7 +13,7 @@ class MagazijnController extends Controller
 {
     public function index()
     {
-        $magazijn = Magazijn::with('product')->get();
+        $magazijn = Magazijn::with('product')->get()->sortBy('product.Barcode');
         
         return view('magazijn.index', compact('magazijn'));
     }
@@ -21,7 +21,7 @@ class MagazijnController extends Controller
     public function leverancier($id)
     {
         $product = Product::with(['leveranciers', 'magazijn', 'productPerLeveranciers'])->findOrFail($id);
-    
+
         $magazijn = $product->magazijn;
         $productPerLeveranciers = $product->productPerLeveranciers;
 
@@ -29,22 +29,24 @@ class MagazijnController extends Controller
             $expectedDelivery = $productPerLeveranciers->first()->DatumEerstVolgendeLevering;
             $errorMessage = "Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: $expectedDelivery";
     
-            return redirect()->back()->withErrors($errorMessage);
+            return view('magazijn.leverancier')->with('product', $product)->withErrors($errorMessage)->with('redirectToOverview', true);
         }
     
         return view('magazijn.leverancier')->with('product', $product);
     }
     
-    
-    
-    
-    
-    
-    
-        
-    public function allergeen(Product $product)
+    public function allergeen($id)
     {
-        $allergenen = $product->allergeen;
-        return view('magazijn.allergeen', compact('allergenen'));
-    }
+        $product = Product::with(['allergeen', 'magazijn', 'productPerAllergeen'])->findOrFail($id);
+        $magazijn = $product->magazijn;
+        $allergeen = $product->allergeen;
+
+        if ($allergeen->IsEmpty()) {
+            $errorMessage = "In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken”";
+    
+            return view('magazijn.leverancier')->with('product', $product)->withErrors($errorMessage)->with('redirectToOverview', true);
+        }
+    
+        return view('magazijn.allergeen')->with('product', $product, 'allergeen');
+    }  
 }

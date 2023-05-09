@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Magazijnoverzicht</h1>
+<h1>Overzicht Magazijn Jamin</h1>
 
 <table>
     <thead>
@@ -25,7 +25,9 @@
                 <td>
                     <a href="{{ route('magazijn.leverancier', ['product' => $magazijnItem->product->Id]) }}">Leverantie Info</a>
                 </td>
-
+                <td>
+                    <a href="{{ route('magazijn.allergeen', ['product' => $magazijnItem->product->Id]) }}">Allergeen Info</a>
+                </td>
             </tr>
         @endforeach
     </tbody>

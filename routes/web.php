@@ -24,3 +24,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/magazijn', [App\Http\Controllers\MagazijnController::class, 'index'])->name('magazijn.index');
 
 Route::get('/magazijn/leverancier/{product}', [App\Http\Controllers\MagazijnController::class, 'leverancier'])->name('magazijn.leverancier');
+
+Route::get('/magazijn/allergeen/{product}', [App\Http\Controllers\MagazijnController::class, 'allergeen'])->name('magazijn.allergeen');
