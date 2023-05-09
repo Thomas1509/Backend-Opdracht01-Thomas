@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/magazijn', [App\Http\Controllers\MagazijnController::class, 'index'])->name('magazijn.index');
+
+Route::get('/magazijn/leverancier/{product}', [App\Http\Controllers\MagazijnController::class, 'leverancier'])->name('magazijn.leverancier');
