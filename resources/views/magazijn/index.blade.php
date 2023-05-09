@@ -6,7 +6,7 @@
 
 <table>
     <thead>
-    <table class="table table-striped">
+    <table class="table table-bordered">
             <th>Barcode</th>
             <th>Naam</th>
             <th>Verpakkingseenheid</th>
