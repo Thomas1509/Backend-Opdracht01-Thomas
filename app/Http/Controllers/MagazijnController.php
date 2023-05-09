@@ -42,7 +42,7 @@ class MagazijnController extends Controller
         $allergeen = $product->allergeen;
 
         if ($allergeen->IsEmpty()) {
-            $errorMessage = "In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken”";
+            $errorMessage = "In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken";
     
             return view('magazijn.leverancier')->with('product', $product)->withErrors($errorMessage)->with('redirectToOverview', true);
         }
